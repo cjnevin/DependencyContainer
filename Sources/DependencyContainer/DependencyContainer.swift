@@ -40,12 +40,12 @@ public class DependencyContainer {
         set { singleton[keyPath: keyPath] = newValue }
     }
 
-    public static func set<T>(_ initialValue: T.Value, for key: T.Type) -> DependencyContainer.Type where T: DependencyKey {
+    @discardableResult public static func set<T>(_ initialValue: T.Value, for key: T.Type) -> DependencyContainer.Type where T: DependencyKey {
         key.value = initialValue
         return self
     }
 
-    public static func set<T>(_ initialValue: T.Value, for key: T.Type) -> DependencyContainer.Type where T: LazyDependencyKey {
+    @discardableResult public static func set<T>(_ initialValue: T.Value, for key: T.Type) -> DependencyContainer.Type where T: LazyDependencyKey {
         key.value = initialValue
         return self
     }

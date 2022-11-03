@@ -23,7 +23,7 @@ extension LazyDependencyKey {
 }
 
 public class DependencyContainer {
-    private static var current = DependencyContainer()
+    private static var singleton = DependencyContainer()
 
     public static subscript<T>(key: T.Type) -> T.Value where T: DependencyKey {
         get { key.value }
@@ -36,8 +36,8 @@ public class DependencyContainer {
     }
 
     public static subscript<T>(_ keyPath: WritableKeyPath<DependencyContainer, T>) -> T {
-        get { current[keyPath: keyPath] }
-        set { current[keyPath: keyPath] = newValue }
+        get { singleton[keyPath: keyPath] }
+        set { singleton[keyPath: keyPath] = newValue }
     }
 
     public static func set<T>(_ initialValue: T.Value, for key: T.Type) -> DependencyContainer.Type where T: DependencyKey {

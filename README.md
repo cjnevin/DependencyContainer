@@ -29,6 +29,6 @@ Then on app launch you just need to override the dependency like so:
 
 ```swift
 func registerDependencies() {
-    DependencyContainer[\.loginService] = LoginApiService()
+    DependencyContainer[LoginServiceDependencyKey.self] = LoginApiService()
 }
 ```

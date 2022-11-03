@@ -1,23 +1,23 @@
 public protocol DependencyKey {
     associatedtype Value
-    static var currentValue: Value { get set }
+    static var value: Value { get set }
 }
 
 public protocol LazyDependencyKey {
     associatedtype Value
-    static var currentValue: Value? { get set }
+    static var value: Value? { get set }
 }
 
 extension LazyDependencyKey {
-    static var value: Value {
+    static var lazyValue: Value {
         get {
-            guard let currentValue = currentValue else {
+            guard let value = value else {
                 preconditionFailure("Value must be set before trying to access this property.")
             }
-            return currentValue
+            return value
         }
         set {
-            currentValue = newValue
+            value = newValue
         }
     }
 }
@@ -26,18 +26,28 @@ public class DependencyContainer {
     private static var current = DependencyContainer()
 
     public static subscript<T>(key: T.Type) -> T.Value where T: DependencyKey {
-        get { key.currentValue }
-        set { key.currentValue = newValue }
+        get { key.value }
+        set { key.value = newValue }
     }
 
     public static subscript<T>(key: T.Type) -> T.Value where T: LazyDependencyKey {
-        get { key.value }
-        set { key.value = newValue }
+        get { key.lazyValue }
+        set { key.lazyValue = newValue }
     }
 
     public static subscript<T>(_ keyPath: WritableKeyPath<DependencyContainer, T>) -> T {
         get { current[keyPath: keyPath] }
         set { current[keyPath: keyPath] = newValue }
+    }
+
+    public static func set<T>(_ initialValue: T.Value, for key: T.Type) -> DependencyContainer.Type where T: DependencyKey {
+        key.value = initialValue
+        return self
+    }
+
+    public static func set<T>(_ initialValue: T.Value, for key: T.Type) -> DependencyContainer.Type where T: LazyDependencyKey {
+        key.value = initialValue
+        return self
     }
 }
 

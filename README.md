@@ -32,3 +32,5 @@ func registerDependencies() {
     DependencyContainer[LoginServiceDependencyKey.self] = LoginApiService()
 }
 ```
+
+Inspired by: [Antoine van der Lee](https://www.avanderlee.com/swift/dependency-injection/) and [Point Free](https://github.com/pointfreeco/swift-composable-architecture/tree/main/Sources/Dependencies)

@@ -1,6 +1,4 @@
 import XCTest
 @testable import DependencyContainer
 
-final class DependencyContainerTests: XCTestCase {
-    
-}
+final class DependencyContainerTests: XCTestCase {}

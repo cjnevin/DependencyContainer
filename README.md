@@ -33,4 +33,11 @@ func registerDependencies() {
 }
 ```
 
+**Pros:**
+- Enables more modular architecture where dependencies don't need to be known by sibling modules
+- No need to pass dependencies between files that don't use them
+
+**Cons:**
+- Can lead to run-time crashes when dependencies are not provided at launch, this can be mitigated using unit tests
+
 Inspired by: [Antoine van der Lee](https://www.avanderlee.com/swift/dependency-injection/) and [Point Free](https://github.com/pointfreeco/swift-composable-architecture/tree/main/Sources/Dependencies)
